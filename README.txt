@@ -1,1 +1,1 @@
-See README.html for details.
+See Manual.html for details.

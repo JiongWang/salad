@@ -1,0 +1,138 @@
+<html>
+<title>The manual of C- compiler</title>
+<body>
+<p align=center><font size=7>The manual of C- compiler</font></p>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<font size=4>Author: Jiong Wang</font>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<font size=4>Department of Electronic Engineering</font>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<font size=4>U.E.S.T.C</font>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<font size=4>P.R.China</font>
+<p align=center><font size=6>Part I</font></p>
+<p align=center><font size=6>Initials of this Compiler</font></p><hr><br>
+&nbsp;&nbsp;When I was a junior,I began to have much interests in the low level technology of C.S,mostly O.S and Compiler.I had saw a book written by A.S.Tanebaom in the O.S filed,but I found that the O.S technology require many hardware knowledge which I am lack of,So I decided to spend more time on the construction of compiler. I ran to the library to borrow the books in this field like mad.<br><br>&nbsp;&nbsp;Finally I locked on a book named "Compiler Construction and Principle" by Kenneth C.Louden.I think this book is a very good book about the ABS of compiler.I read through it,and think I have mastered some basic things,so I needed something to prove myself,to test myself. By chance,on the Appendix of this book ,K.C.L gave the students a project to complete,named C- compiler project.He had gave us the grammar of the language,and the construction of the compiler all left to the students. 
+<br><br>&nbsp;&nbsp;I found this project fit for me,so I began to work on it.So this is the initials of my version of C- compiler.I have modified the grammar appreciably so that the construction of the parser would be easier.
+<br><br>&nbsp;&nbsp;All the grammar of the C- language is very familar with C,So if you are familar with C,you will find that program using C- is very easy,You bet,The C- is less powerful compared with C.<hr>
+<p align=center><font size=6>Part II</font></p>
+<p align=center><font size=6>For The User</font></p><br>
+<font size=5>A.</font>&nbsp;&nbsp;What should I know to program with the C- language?<br>
+Nothing.You can know nothing,only need to read the grammar given on the Part V,and you can program with C- glibbly.But if you have some knowledge of C or other language,It will be easier for you to understand the C-.<br><br>
+<font size=5>B.</font>&nbsp;&nbsp;What the C- language could do?</br>
+Very little things.Mostly ,the algebra calculation.Because this compiler is mainly for the research on the theory of construction of compiler,not for the pratical usage.I wrote it just to validate the method of scanning,the method of recursive descent analysis,etc.
+<br><br>But don`t be off your feed,may be it is lack of data type, it can support the function,the recursion,this will be of great functional.
+<br><br>
+<font size=5>C.</font>&nbsp;&nbsp;Will this compiler be improved or just become a orphan?<br>
+This is not decided.I think I will have little spare time on the next semester,so the modification for this compiler will be very little,but if there is volunteer,welcome you!.I wish there could be someone the add the String data type support to the compiler.<br><br>
+<font size=5>D.</font>&nbsp;&nbsp;Does this compiler has it`s website?<br>
+No.If you have found any bug,email to me saladjonk@gmail.com,or 172.24.16.90,but this is LAN website,not everyone can visite it.<br><br>
+<font size=5>E.</font>&nbsp;&nbsp;Is there any restriction to use this compiler ,is it free?<br>
+No restriction to use it,and it is completely free.It is stick to the GPL,and I will be responsible for nothing,if there is something.
+<hr>
+<p align=center><font size=6>Part III</font></p>
+<p align=center><font size=6>The Analysis of the C- Compiler</font></p><br>
+<font size=5>A.</font>&nbsp;&nbsp;The scanner<br><br>
+I construction the scanner using the method of translate the regular expression to NFA,and then translate the NFA to DFA by Tompson Rule.&nbsp;Finally,with the DFA diagram ,I wrote the code.I did not use the flex tool,because the lexical grammar of the C- language is very easy,there is no need to use the flex,just by hand can finish the scanner very quickly.<br><br>
+<font size=5>B.</font>&nbsp;&nbsp;The parser<br><br>
+The parser is constructed by the method of recursive descent analysis.I wrote a group of function to finish this part,you can see them in the source file named "parse.c".There is something I need to explain,Because the grammar K.C.L given us is not completely a EBNF,so I have taken some special measure to void the confliction,thus the there may be many if,case statement in the "parse.c".I also combined some rule of the grammer of C-,so may be the "parse.c" seems not a completely recursive descent analysis.<br><br>
+<font size=5>C.</font>&nbsp;&nbsp;The analyser<br><br>
+The main function of the analyser it to build the symbol table of the source file.The global variable and the variable in the main function will be registered in the same table,other function will hava a symbol table each.So,except the main function,if there is five function,then there will be six symbol table.Each entry of the symbol table have two filed,one is the name of the variable,the other is the location of the variable.There are a group of function to operate on the symbol table.All of the above you can see the source file "symtab.h","symtab.c","analyze.c" ,"analyze.h".They are detailed in the source file.<br><br>
+<font size=6>D.</font>&nbsp;&nbsp;The code generator<br><br>
+How terrible to talk about the code generator! It may cost me 4 days to debug it.I think it is the most difficult part to realize in the construction of compiler.I used many methods on it,just daedal.I am lack of the experiences in this part,and it is different from the scanner or parser,the later two have a regular method to realize,but the code generator is mostly depend on the experience of the compiler writer.If you have not code may things,you will find it is very difficult.The code generation of the "If" statement,"While" statement,and other individual part is not difficult,but to make them co-operative with each other concordantly is a big problem,I have modified the source file many times,and compiled many times ,then finished it.I think this part is lack of efficience.I wish there will be someone to optimize it.You can see the source file "code.c","code.h","cgen.c","cgen.h" to get the details.<hr>
+<p align=center><font size=6>Part IIII</font></p>
+<p align=center><font size=6>The TM Visual Machine</font></p><br>
+&nbsp;&nbsp;The TM visual machine is written by Kneeth C.Louden.I think it is a good model to research the construction of visual machine.TM consists of a read-only instruction memory,a data memory,and a set of eight general-purpose registers.These all use nonnegative integer addresses beginning at 0.Register 7 is the program counter and is the only special register.At start-up,the Tiny Machine sets all registers and data memory to 0,then loads the value of the hightest legal address(namely DADDR_SIZE-1)into dMem[0].The TM has it`s own instruction set,all of them is given in the Part VI.There are two basic instruction formats;register-only,or RO instructions,and register-memory,or RM instructions.A register-only instruction has format opcode r,s,t , while the register-memory instruction has the format opcode r,d(s),you can go to the part VI to get the details.<hr>
+<p align=center><font size=6>Part V</font></p>
+<p align=center><font size=6>The grammar of C- language</font></p><br>
+<font size=5>A.</font>&nbsp;&nbsp;The main struction of the program should look like the follow structure:<br><br>
+<pre>
+int                         ...... declaration of the global variable
+
+void or int Function(args)
+{                           ......declaration and define of function
+
+int...
+while...                    ......those statements supported by the c- language
+if...
+return...
+
+}
+
+
+void main(void)
+{                           ......the main function ,also the entry of the program.
+
+int ...
+while...                    ......those statements supported by the c- language 
+if...
+
+}
+</pre><br>
+<font size=5>B.</font>&nbsp;&nbsp;The If statement</font></p><br>
+&nbsp;&nbsp;The main structure of the if statement is : if (expression) statement else statment<br><br>
+The value of the first expression should be a boolen type,that is 0 or 1 in the expression of a integer.If it is 1,i.e,ture,then the first statement is executed,else the second statement is executed.Just the same as many other language.<br><br>
+<font size=5>C.</font>&nbsp;&nbsp;The While statement</font></p><br>
+&nbsp;&nbsp;The main structure of the while statement is: while (expression) { statements;} statments our of the while <br><br>
+The value of the first expression should be boolen type,that is 0 or 1 in the expression of a integer.If it is 1,i.e,true, then the statments in the circular brackets will be executed,else the statements out of the While will be executed.<br><br>
+<font size=5>D.</font>&nbsp;&nbsp;The Return statement</font></p><br>
+&nbsp;&nbsp;May be the return statements will be used only in the sub-function.If the sub-function is of int type,then there should be a return statements in the end of the sub-function.<br><br>
+<font size=5>E.</font>&nbsp;&nbsp;Some other important things</font></p><br>
+&nbsp;&nbsp;This language only support ten elements in one array,and there should not be more than 20 functions in one program.If you want to have more elements in a array,or more functions ,you should modify the source file ,and then recompile the compiler.All details are in the source file.<hr>
+<p align=center><font size=6>Part VI</font></p>
+<p align=center><font size=6>The instruction set of TM</font></p><br>
+<pre>
+
+RO Instructions
+----------------------------------------------------------------------------------------
+Format:      opcode r,s,t
+Opcode       Effect
+
+HALT         stop execution(operands ignored)
+IN           reg[r]<---integer value read from the standard input(s and t ignored)
+OUT          reg[r]--->the standard output(s and t ignored)
+ADD          reg[r] = reg[s] + reg[t]
+SUB          reg[r] = reg[s] - reg[t]
+MUL          reg[r] = reg[s] * reg[t]
+DIV          reg[r] = reg[s] / reg[t](may generate ZERO_DIV)
+
+
+
+RM Instructions
+----------------------------------------------------------------------------------------
+Format:      opcode r,d(s)
+(a = d + reg[s]; any reference to dMem[s] generates DMEM_ERR if a<0 or a>=DADDR_SIZE)
+
+Opcode       Effect
+LD           reg[r] = dMem[a](load r with memory value at a)
+LDA          reg[r] = a(load address a directly into r)
+LDC          reg[r] = d(load constant d directly into r---s is ignored)
+ST           dMem[a] = reg[r](store value in r to memory location a)
+JLT          if (reg[r] < 0) reg[PC_REG] = a(jump to instruction a if r is negative,similarly for the following)
+JLE          if (reg[r] <= 0) reg[PC_REG] = a
+JGE          if (reg[r] > 0) reg[PC_REG] = a
+JEQ          if (reg[r] == 0) reg[PC_REG] = a
+JNE          if (reg[r] != 0) reg[PC_REG] = a
+
+</pre>
+<hr>
+<p align=left>Jiong.W saladjonk@gmail.com</p>
+
+</body>
+</html>
